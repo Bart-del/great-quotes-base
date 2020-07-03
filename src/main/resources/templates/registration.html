@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+<head>
+    <title>Registration</title>
+</head>
+<body style="font-family: Verdana;font-size: small; padding: 0.3%">
+<div th:replace="main :: menu"></div>
+    <p style=" margin-top:5%; text-align: center; font-size: 30px; font-style: normal">Registration form</p>
+    <form action="#" th:action="@{/registration}" th:object="${newUser}" method="post" enctype="utf8"
+          class="pure-form pure-form-stacked" style="alignment: center">
+        <fieldset>
+             <div style="width: 25%; clear: both; position: relative; left: 37.5%">
+                <label>Login</label>
+                <input style="width: 100%;clear: both" type="text", id="login" th:field="*{login}"/>
+                <span class="pure-form-message">Login must be between 6 and 32 characters.</span>
+                <br>
+            </div>
+            <span style=" left: 64%; top: 25%; position: absolute; color: darkred; font-style: italic; font-size: small" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">..</span>
+            <div style="width: 25%; clear: both; position: relative; left: 37.5%">
+                <label>Password</label>
+                <input style="width: 100%;clear: both" type="password" th:field="*{password}"/>
+                <span class="pure-form-message">Password must be between 8 and 32 characters.</span>
+                <br>
+            </div>
+            <span style=" left: 64%; top: 38%; position: absolute; color: darkred; font-style: italic; font-size: small" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">..</span>
+            <div style="width: 25%; clear: both; position: relative; left: 37.5%">
+                <label>Confirm password</label>
+                <input style="width: 100%;clear: both" type="password" th:field="*{matchingPassword}">
+                <span class="pure-form-message">Please enter your password again.</span>
+                <br><button style=" width: 100%" class="pure-button" type="submit">Submit</button>
+            </div>
+            <span style=" left: 64%; top: 52%; position: absolute; color: darkred; font-style: italic; font-size: small" th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}">..</span>
+        </fieldset>
+    </form>
+<span th:replace="main :: footer"></span>
+</body>
+</html>

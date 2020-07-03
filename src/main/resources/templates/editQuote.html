@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Add quote</title>
+</head>
+<body style="margin: auto; padding: 0.5%; font-family: Verdana; font-size: small">
+<div th:replace="main :: menu"></div>
+<p style=" margin-top: 5%; text-align: center; font-size: 30px; font-style: normal">Edit quote</p>
+<form action="#" th:action="@{/editQuote/{id}(id=${editedQuote.getIndex()})}" th:object="${editedQuote}" method="post"
+      class="pure-form pure-form-stacked">
+    <fieldset>
+        <div style="width: 30%; clear: both; position: relative; left: 37.5%">
+            <label>Quote</label>
+            <textarea style="width: 100%; height: 200px" type="text" th:value="${body}" id="body" name="body" th:field="*{body}"/>
+        </div>
+        <div style="width: 25%; clear: both; position: relative; left: 37.5%">
+            <label>Author</label>
+            <input style="width: 100%;clear: both" type="text" th:value="${author}" id="author" name="author" th:field="*{author}"/><br>
+            <button style="width: 100%" class="pure-button" type="submit">Submit</button>
+        </div>
+    </fieldset>
+</form>
+<span th:replace="main :: footer"></span>
+</body>
+</html>

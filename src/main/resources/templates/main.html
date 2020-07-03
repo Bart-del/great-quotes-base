@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <title>Great base of quotes</title>
+</head>
+<body style="margin: auto; padding: 0.3%; font-family: Verdana;font-size: small">
+    <div th:fragment="menu" style="overflow: hidden; position: fixed; top: 0; width: 100% ; background-color: white ;border-bottom:1px solid black">
+        <span style="width: auto; text-align: center; font-size: smaller; margin-left: 5%"sec:authorize="isAuthenticated()">
+            Logged in user: <b th:inline="text"> [[${#httpServletRequest.remoteUser}]]</b>,
+            Role : <b th:text="${#authentication.getAuthorities()}"></b>
+        </span>
+         <span style="width: auto; float: left; display: inline-block">
+                <form th:action="@{/getAllByAuthor={author}(author=${author})}" method="GET" class="pure-form pure-form-stacked">
+                    <input style="display: inline-block" type="text" id="author" th:placeholder="Author" th:name="author" th:value="${author}"/>
+                    <button style="display: inline-block" class="pure-button" type="submit">Search all quotes by Author</button>
+                </form>
+         </span>
+        <div sec:authorize="isAuthenticated()" style="width: auto; float: right">
+            <form th:action="@{/logout}" method="POST" class="pure-form pure-form-stacked">
+                <button style="float: right;margin-top: 5px; margin-right: 5px" class="pure-button" type="submit" value="Logout">Log out</button>
+            </form>
+        </div>
+        <div style="width: auto;float: right">
+            <button class="pure-button" onclick="location.href='/'" style="margin-top:5px">Main page</button>
+             <span sec:authorize="isAnonymous()">
+                <button style="margin-top: 1%" class="pure-button" onclick="location.href='/login'">Login</button>
+                <button style="margin-top: 1%" class="pure-button" onclick="location.href='/registration'">Register</button>
+             </span>
+            <button class="pure-button" onclick="location.href='/addQuote'" style="margin-right: 5px; margin-top:5px">Add new quote</button>
+        </div>
+    </div>
+    <div style=" margin-top: 5%; margin-bottom: 5%">
+        <h1 style="color: #111; font-size: 50px; font-weight: lighter; letter-spacing: -1px; line-height: 1; text-align: center; font-style: normal"> GREAT BASE OF QUOTES</h1><hr>
+        <div th:if="${quotesByAuthorRequest}">
+            <tr th:each="quote: ${getQuotesByAuthor}">
+                <p style="text-align: center"> "<td th:text="${quote.getBody()}"/>"</p>
+                <p style="text-align: center">~</p>
+                <p style="text-align: center;font-style:italic"> <td th:text="${quote.getAuthor()}"/></p>
+                <div sec:authorize="hasAuthority('ADMINISTRATOR')" align="right">
+                    <form th:action="@{/editQuote/{id}(id=${quote.getIndex()})}" method="GET" class="pure-form pure-form-stacked">
+                        <button class="pure-button" type="submit">Edit Quote</button>
+                    </form>
+                    <form th:action="@{/deleteQuote/{id}(id=${quote.getIndex()})}" class="pure-form pure-form-stacked">
+                        <button style="margin-top: 10px" class="pure-button" type="submit" onClick="return confirm('Are you sure?')">Delete Quote</button>
+                    </form>
+                </div>
+                <hr>
+            </tr>
+        </div>
+        <div style="margin-top: 5%; margin-bottom: 5%" th:unless="${quotesByAuthorRequest}">
+            <tr th:each="quote: ${allQuotes}">
+            <p style="text-align: center"> "<td th:text="${quote.getBody()}"/>"</p>
+            <p style="text-align: center">~</p>
+            <p style="text-align: center;font-style:italic"> <td th:text="${quote.getAuthor()}"/></p>
+            <div sec:authorize="hasAuthority('ADMINISTRATOR')" align="right">
+                <form th:action="@{/editQuote/{id}(id=${quote.getIndex()})}" class="pure-form pure-form-stacked">
+                     <button class="pure-button" type="submit">Edit Quote</button>
+                </form>
+                <form th:action="@{/deleteQuote/{id}(id=${quote.getIndex()})}" class="pure-form pure-form-stacked">
+                     <button style="margin-top: 10px" class="pure-button" type="submit" onClick="return confirm('Are you sure?')">Delete Quote</button>
+                 </form>
+            </div>
+                <hr>
+            </tr>
+        </div>
+    </div>
+    <span th:fragment="footer">
+        <footer style="font-family: Verdana; padding: 0; margin: 0; font-size: small; overflow: auto; position: fixed; bottom: 0; width: 100% ; height: 40px; background-color: white; display: inline-block">
+            <img style="float: inside; position: center; margin-right: 5px" width="25" height="25" src="https://image.flaticon.com/icons/svg/25/25320.svg"> <a style="float: top; margin-right: 15px" href="https://www.linkedin.com/in/bart%C5%82omiej-wysocki-9b5b67198/">Linkedin profile</a>
+            <img style="float: inside; position: center; margin-right: 5px" width="25" height="25" src="https://image.flaticon.com/icons/svg/2111/2111425.svg"><a style="float: top; margin-right: 15px" href="https://github.com/Bart-del?tab=repositories">Github profile </a>
+            <img style="float: inside; position: center; margin-right: 5px" width="25" height="25" src="https://image.flaticon.com/icons/svg/2991/2991143.svg"><a style="float: top; margin-right: 15px">bartlomiej.wyso@gmail.com</a>
+        </footer>
+    </span>
+</body>
+</html>

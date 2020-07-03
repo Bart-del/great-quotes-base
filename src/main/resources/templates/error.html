@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+<head>
+    <title>Error page</title>
+</head>
+<body style="margin: auto; padding: 0.3%; font-family: Verdana;font-size: small"
+      th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+<div th:replace="main :: menu"></div>
+<h1 style="margin-top: 5%; text-align: center" >Something went wrong :( </h1>
+<p style="text-align: center" th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|"></p>
+
+<span style="font-size: small" th:replace="main :: footer"></span>
+</body>
+</html>

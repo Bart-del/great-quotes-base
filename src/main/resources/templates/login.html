@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org" lang="en">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+      integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+<head>
+    <title>Login page</title>
+</head>
+<body style="font-family: Verdana; padding: 0.3%; font-size: small">
+    <div th:replace="main :: menu"></div>
+    <form style="margin-top: 5%" th:action="@{/login}" method="post" class="pure-form pure-form-stacked">
+        <fieldset>
+            <p style="font-size: small; text-align: center" th:if="${newUserLogin}">Registration successful. Now you can login :)</p>
+            <p style=";text-align: center; font-size: 30px; font-style: normal">Login form</p>
+            <div style="width: 25%; clear: both; position: relative; left: 37.5%">
+                <p th:if="${loginError}" class="error", style="text-align: center; color: darkred">Wrong user or password, please try again</p>
+                <label for="login">Login</label>
+                <input style="width: 100%;clear: both" type="text" id="login" name="login" autofocus="autofocus" /> <br/>
+            </div>
+            <div style="width: 25%; clear: both; position: relative; left: 37.5%">
+                <label for="password">Password</label>
+                <input style="width: 100%;clear: both" type="password" id="password" name="password" /> <br/>
+            </div>
+            <div style="width: 25%; clear: both; position: relative; left: 37.5%">
+                    <button style="width: 100%;clear: both" class="pure-button" type="submit" value="Log in">Log in</button>
+                    <label for="stacked-remember" class="pure-checkbox">
+                <input type="checkbox" id="stacked-remember" /> Remember me</label>
+            </div>
+        </fieldset>
+    </form>
+    <span th:replace="main :: footer"></span>
+</body>
+</html>
