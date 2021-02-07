@@ -1,8 +1,7 @@
 # great-quotes-base
 
 In order to learn programming and develop skills I have
-written several projects. One of them is located here:
-https://great-quotes-base.herokuapp.com/
+written several projects.
 This is a website that serves as a database of quotes. The
 application allows you to set up an account and login. Adding
 a quote to the database requires logging in. An unlogged user
